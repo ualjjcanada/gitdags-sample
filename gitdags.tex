@@ -1,0 +1,40 @@
+\documentclass[tikz]{standalone}
+\usepackage{gitdags}
+
+\begin{document}
+
+    \begin{tikzpicture}
+      % Commit DAG
+      \gitDAG[grow right sep = 2em]{
+        e137e9 -- 9817e0 [fill=solarized-violet!20]--  {
+         {
+            {
+              { ae3e0f   },
+		   { C4 -- C5 -- C6 },
+              { a1fbcd [fill=solarized-yellow!80] -- 86d91f [fill=solarized-blue!20] -- 711a58 [fill=solarized-blue!20]},
+            },
+          },
+        } -- e2d9e6 [fill=solarized-red!50] 
+      };
+      % Branch
+      \gitbranch
+        {main}     % node name and text 
+        {above=of  e2d9e6} % node placement
+        {e2d9e6}          % target
+	% HEAD reference
+      \gitHEAD
+        {above=of main} % node placement
+        {main}          % target
+     % Local Branch
+      \gitbranch
+        {dev}     % node name and text 
+        {below=of 711a58} % node placement
+        {711a58}          % target
+	 % Remote branch
+      \gitremotebranch
+        [origfeature1]    % node name
+        {origin/main} % node text
+        {above=of ae3e0f}    % node placement
+        {ae3e0f}             % target
+    \end{tikzpicture}
+\end{document}
